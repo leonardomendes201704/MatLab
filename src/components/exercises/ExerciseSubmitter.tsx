@@ -47,11 +47,11 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
   }
 
   return (
-    <div className="grid h-full content-center rounded-2xl bg-white p-5 ring-1 ring-slate-200 md:p-8">
+    <div className="grid h-full content-center rounded-2xl bg-white p-5 text-center ring-1 ring-slate-200 md:p-8">
       <p className="text-xs font-black uppercase text-emerald-700">Dificuldade {exercise.difficulty}</p>
       <h2 className="mt-2 text-2xl font-black text-slate-950 md:text-4xl">{exercise.question}</h2>
       <div className="mt-6">{children(setAnswer, answer, Boolean(result))}</div>
-      <div className="mt-5 flex flex-wrap gap-3">
+      <div className="mt-5 flex flex-wrap justify-center gap-3">
         {!result ? <Button onClick={submit} disabled={isPending || !answer}>{isPending ? "Enviando..." : "Responder"}</Button> : null}
       </div>
       {usedHint ? <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-bold text-amber-800">{exercise.hint}</p> : null}
