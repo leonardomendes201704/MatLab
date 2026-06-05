@@ -21,7 +21,7 @@ type ExerciseSubmitterProps = {
 
 export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, isLast = false }: ExerciseSubmitterProps) {
   const [answer, setAnswer] = useState("");
-  const [usedHint, setUsedHint] = useState(false);
+  const [usedHint] = useState(false);
   const [result, setResult] = useState<AttemptResult | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -53,7 +53,6 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
       <div className="mt-6">{children(setAnswer, answer, Boolean(result))}</div>
       <div className="mt-5 flex flex-wrap gap-3">
         {!result ? <Button onClick={submit} disabled={isPending || !answer}>{isPending ? "Enviando..." : "Responder"}</Button> : null}
-        {!result ? <Button type="button" variant="secondary" onClick={() => setUsedHint(true)}>Ver dica</Button> : null}
       </div>
       {usedHint ? <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-bold text-amber-800">{exercise.hint}</p> : null}
       {result ? (
@@ -65,10 +64,10 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
             <h3 className="mt-4 text-2xl font-black text-slate-950">
               {result.isCorrect ? "Muito bem!" : "Quase lá!"}
             </h3>
-            <p className={`mt-3 rounded-xl p-4 text-left font-bold ${result.isCorrect ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"}`}>
+            <p className={`mt-3 rounded-xl p-4 text-center font-bold ${result.isCorrect ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"}`}>
               {result.feedback}
             </p>
-            {result.explanation ? <p className="mt-3 text-left text-sm text-slate-600">{result.explanation}</p> : null}
+            {result.explanation ? <p className="mt-3 text-center text-sm text-slate-600">{result.explanation}</p> : null}
             <Button className="mt-6 w-full" onClick={onContinue}>
               {isLast ? "Ver resultado" : "Próximo"}
             </Button>
