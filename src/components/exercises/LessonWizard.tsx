@@ -95,16 +95,14 @@ export function LessonWizard({ lesson, exercises }: LessonWizardProps) {
         <TopHeader />
 
         <section className="rounded-[28px] border border-slate-100 bg-white px-4 py-4 shadow-[0_22px_70px_rgba(76,51,162,0.10)] sm:rounded-[34px] sm:px-7 sm:py-6">
-          <div className="flex flex-col gap-3">
-            <p className="text-xs font-black uppercase tracking-wide text-emerald-600 sm:text-lg">Lição</p>
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
-              <h1 className="min-w-0 truncate text-[clamp(1.05rem,4.8vw,1.75rem)] font-black tracking-tight text-slate-950 sm:text-[clamp(2rem,3.4vw,3.1rem)]">
-                {lesson.title}
-              </h1>
-              <div className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1.5 text-sm font-black text-emerald-700 sm:gap-3 sm:px-6 sm:py-3 sm:text-2xl">
-                <CheckCircle2 className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={2.5} />
-                <span>{currentProgress}/{exercises.length}</span>
-              </div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <p className="flex-none text-[10px] font-black uppercase tracking-wide text-emerald-600 sm:text-lg">Lição</p>
+            <h1 className="min-w-0 truncate text-[clamp(1rem,4.2vw,1.55rem)] font-black tracking-tight text-slate-950 sm:text-[clamp(2rem,3.4vw,3.1rem)]">
+              {lesson.title}
+            </h1>
+            <div className="inline-flex flex-none items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-[0.72rem] font-black text-emerald-700 sm:gap-3 sm:px-6 sm:py-3 sm:text-2xl">
+              <CheckCircle2 className="h-3.5 w-3.5 sm:h-6 sm:w-6" strokeWidth={2.5} />
+              <span>{currentProgress}/{exercises.length}</span>
             </div>
           </div>
 

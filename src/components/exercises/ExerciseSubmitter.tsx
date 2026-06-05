@@ -76,8 +76,8 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
           <div className="min-w-0 flex-1">
             <div className="relative rounded-[24px] bg-[#f4f1ff] px-4 py-4 text-left shadow-[0_12px_30px_rgba(97,68,190,0.08)] sm:rounded-[30px] sm:px-6 sm:py-6">
               <div className="absolute left-0 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[5px] bg-[#f4f1ff] sm:h-5 sm:w-5 sm:rounded-[6px]" />
-              <p className="max-w-2xl text-[clamp(0.95rem,4vw,1.35rem)] leading-relaxed text-slate-800 sm:text-[clamp(1.05rem,2vw,1.35rem)]">
-                Foco total! Cada acerto te deixa mais próximo do topo! <span className="align-middle">🚀</span>
+              <p className="max-w-2xl text-[clamp(0.95rem,4vw,1.25rem)] leading-relaxed text-slate-800 sm:text-[clamp(1.05rem,2vw,1.35rem)]">
+                Cada acerto te deixa mais perto do topo!
               </p>
             </div>
           </div>
