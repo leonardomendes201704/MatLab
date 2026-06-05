@@ -46,6 +46,11 @@ export type ResumableLesson = {
   totalAttempts: number;
 };
 
+export type LessonProgressState = {
+  completed: boolean;
+  totalAttempts: number;
+};
+
 export async function getResumableLesson(userId?: string): Promise<ResumableLesson | null> {
   const supabase = createServiceClient();
   if (!supabase || !userId) return null;
@@ -85,6 +90,47 @@ export async function getResumableLesson(userId?: string): Promise<ResumableLess
     title: lesson.title,
     totalAttempts: start,
   };
+}
+
+export async function getLessonProgressState(userId: string, lessonId: string): Promise<LessonProgressState | null> {
+  const supabase = createServiceClient();
+  if (!supabase || !userId) return null;
+
+  const { data } = await supabase
+    .from("lesson_progress")
+    .select("completed,total_attempts")
+    .eq("user_id", userId)
+    .eq("lesson_id", lessonId)
+    .maybeSingle();
+
+  if (!data) return null;
+
+  return {
+    completed: Boolean(data.completed),
+    totalAttempts: Math.max(0, data.total_attempts ?? 0),
+  };
+}
+
+export async function resetLessonProgress(userId: string, lessonId: string) {
+  const supabase = createServiceClient();
+  if (!supabase || !userId) return;
+
+  await supabase
+    .from("lesson_progress")
+    .upsert({
+      user_id: userId,
+      lesson_id: lessonId,
+      completed: false,
+      score: 0,
+      correct_count: 0,
+      wrong_count: 0,
+      total_attempts: 0,
+      xp_earned: 0,
+      started_at: new Date().toISOString(),
+      completed_at: null,
+      updated_at: new Date().toISOString(),
+    })
+    .select();
 }
 
 export async function listStudents() {

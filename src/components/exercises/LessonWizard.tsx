@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/Button";
 import type { Exercise } from "@/types/exercise";
 
 type LessonWizardProps = {
+  lessonId: string;
   lesson: {
     title: string;
     explanation?: string | null;
@@ -28,7 +29,7 @@ const bottomNavItems = [
   { href: "/app/perfil", label: "Perfil", icon: UserRound, active: false },
 ];
 
-export function LessonWizard({ lesson, exercises, initialIndex = 0 }: LessonWizardProps) {
+export function LessonWizard({ lessonId, lesson, exercises, initialIndex = 0 }: LessonWizardProps) {
   const [currentIndex, setCurrentIndex] = useState(Math.min(Math.max(initialIndex, 0), Math.max(exercises.length - 1, 0)));
   const [results, setResults] = useResults();
   const currentExercise = exercises[currentIndex];
@@ -41,7 +42,18 @@ export function LessonWizard({ lesson, exercises, initialIndex = 0 }: LessonWiza
     setResults((previous) => [...previous, result]);
   }
 
-  function handleContinue() {
+  async function handleContinue() {
+    if (currentIndex === exercises.length - 1) {
+      try {
+        await fetch("/api/lesson-progress/complete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ lessonId }),
+        });
+      } catch {
+        // We still advance to the summary screen; the Home can retry reading progress on next load.
+      }
+    }
     setCurrentIndex((index) => Math.min(index + 1, exercises.length));
   }
 
