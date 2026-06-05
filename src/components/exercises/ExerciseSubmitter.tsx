@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useTransition } from "react";
 import { CheckCircle2, ChevronRight, Sparkles, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import type { Exercise } from "@/types/exercise";
-import mascotImage from "../../images/Mascote principal do wizard.png";
 
 export type AttemptResult = {
   isCorrect: boolean;
@@ -61,28 +59,6 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
       </div>
 
       <div className="relative z-10 grid gap-4 sm:gap-6">
-        <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
-          <div className="flex w-[92px] flex-none justify-center sm:w-[150px] lg:w-[180px]">
-            <Image
-              alt="Mascote do wizard"
-              className="h-auto w-full drop-shadow-[0_22px_45px_rgba(84,42,175,0.20)]"
-              height={1436}
-              preload
-              src={mascotImage}
-              width={1436}
-            />
-          </div>
-
-          <div className="min-w-0 flex-1">
-            <div className="relative rounded-[24px] bg-[#f4f1ff] px-4 py-4 text-left shadow-[0_12px_30px_rgba(97,68,190,0.08)] sm:rounded-[30px] sm:px-6 sm:py-6">
-              <div className="absolute left-0 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[5px] bg-[#f4f1ff] sm:h-5 sm:w-5 sm:rounded-[6px]" />
-              <p className="max-w-2xl text-[clamp(0.95rem,4vw,1.25rem)] leading-relaxed text-slate-800 sm:text-[clamp(1.05rem,2vw,1.35rem)]">
-                Cada acerto te deixa mais perto do topo!
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div className="mx-auto inline-flex items-center rounded-full bg-emerald-50 px-4 py-2 text-sm font-black text-emerald-700 shadow-sm sm:px-5 sm:text-base">
           <Sparkles size={16} className="mr-2 sm:size-[18px]" />
           Dificuldade {exercise.difficulty}
@@ -110,14 +86,6 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
 
         </div>
 
-        <div className="hidden items-center justify-center gap-4 text-[clamp(1rem,1.7vw,1.2rem)] text-slate-700 sm:flex">
-          <Sparkles className="text-[#56d69e]" size={18} />
-          <span className="inline-flex items-center gap-2 font-medium">
-            <HeartIcon />
-            Você consegue!
-          </span>
-          <Sparkles className="text-[#56d69e]" size={18} />
-        </div>
       </div>
 
       {result ? (
@@ -154,8 +122,4 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
       ) : null}
     </div>
   );
-}
-
-function HeartIcon() {
-  return <span className="text-xl text-[#8f54ff]">♥</span>;
 }
