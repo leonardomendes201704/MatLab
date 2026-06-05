@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { PropsWithChildren } from "react";
 import { BottomNavigation } from "@/components/BottomNavigation";
 
-export function AppShell({ children }: PropsWithChildren) {
+export function AppShell({ children, immersive = false }: PropsWithChildren<{ immersive?: boolean }>) {
   return (
-    <div className="min-h-screen bg-sky-50 pb-24">
+    <div className={`min-h-dvh bg-sky-50 ${immersive ? "pb-0" : "pb-24 md:pb-0"}`}>
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <Link className="text-lg font-black text-slate-950" href="/app">Matemática Quest</Link>
@@ -15,8 +15,8 @@ export function AppShell({ children }: PropsWithChildren) {
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl px-4 py-6">{children}</main>
-      <BottomNavigation />
+      <main className={`mx-auto w-full max-w-6xl px-4 ${immersive ? "py-2 md:py-4" : "py-6"}`}>{children}</main>
+      {immersive ? null : <BottomNavigation />}
     </div>
   );
 }

@@ -36,7 +36,7 @@ export function LessonWizard({ lesson, exercises }: LessonWizardProps) {
 
   if (!exercises.length) {
     return (
-      <div className="grid h-[calc(100vh-112px)] place-items-center overflow-hidden">
+      <div className="grid h-[calc(100dvh-168px)] place-items-center overflow-hidden md:h-[calc(100dvh-104px)]">
         <div className="max-w-md rounded-2xl bg-white p-6 text-center ring-1 ring-slate-200">
           <h1 className="text-2xl font-black">Sem exercícios por enquanto</h1>
           <p className="mt-2 text-slate-600">Esta lição ainda não tem exercícios ativos no Supabase.</p>
@@ -48,7 +48,7 @@ export function LessonWizard({ lesson, exercises }: LessonWizardProps) {
   if (isDone) {
     const accuracy = Math.round((correctCount / Math.max(exercises.length, 1)) * 100);
     return (
-      <div className="grid h-[calc(100vh-112px)] place-items-center overflow-hidden">
+      <div className="grid h-[calc(100dvh-168px)] place-items-center overflow-hidden md:h-[calc(100dvh-104px)]">
         <div className="w-full max-w-2xl rounded-2xl bg-white p-6 text-center ring-1 ring-slate-200 md:p-10">
           <Trophy className="mx-auto text-amber-500" size={56} />
           <h1 className="mt-4 text-3xl font-black text-slate-950">Lição concluída</h1>
@@ -68,24 +68,24 @@ export function LessonWizard({ lesson, exercises }: LessonWizardProps) {
   }
 
   return (
-    <div className="grid h-[calc(100vh-112px)] grid-rows-[auto_1fr] gap-4 overflow-hidden">
-      <header className="rounded-2xl bg-white p-4 ring-1 ring-slate-200">
+    <div className="grid h-[calc(100dvh-168px)] grid-rows-[auto_minmax(0,1fr)] gap-3 overflow-hidden md:h-[calc(100dvh-104px)] md:gap-4">
+      <header className="rounded-2xl bg-white p-3 ring-1 ring-slate-200 md:p-4">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase text-emerald-700">Lição</p>
-            <h1 className="truncate text-xl font-black text-slate-950">{lesson.title}</h1>
+            <h1 className="truncate text-base font-black text-slate-950 md:text-xl">{lesson.title}</h1>
           </div>
           <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-sm font-black text-emerald-700">
             <CheckCircle2 size={16} />
             {currentIndex + 1}/{exercises.length}
           </div>
         </div>
-        <div className="mt-3">
+        <div className="mt-2 md:mt-3">
           <ProgressBar value={(currentIndex / exercises.length) * 100} />
         </div>
       </header>
 
-      <section className="min-h-0">
+      <section className="min-h-0 overflow-hidden">
         <ExerciseCard
           key={currentExercise.id}
           exercise={currentExercise}
