@@ -18,6 +18,7 @@ type LessonWizardProps = {
     example?: string | null;
   };
   exercises: Exercise[];
+  initialIndex?: number;
 };
 
 const bottomNavItems = [
@@ -27,8 +28,8 @@ const bottomNavItems = [
   { href: "/app/perfil", label: "Perfil", icon: UserRound, active: false },
 ];
 
-export function LessonWizard({ lesson, exercises }: LessonWizardProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+export function LessonWizard({ lesson, exercises, initialIndex = 0 }: LessonWizardProps) {
+  const [currentIndex, setCurrentIndex] = useState(Math.min(Math.max(initialIndex, 0), Math.max(exercises.length - 1, 0)));
   const [results, setResults] = useResults();
   const currentExercise = exercises[currentIndex];
   const isDone = currentIndex >= exercises.length;

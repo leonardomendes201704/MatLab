@@ -9,9 +9,10 @@ import { StreakBadge } from "@/components/student/StreakBadge";
 import { XPBadge } from "@/components/student/XPBadge";
 import { modules } from "@/lib/data/catalog";
 import { loadStudentProgress } from "@/services/progress-service";
+import { getResumableLesson } from "@/repositories/student-repository";
 
 export default async function StudentDashboard() {
-  const progress = await loadStudentProgress();
+  const [progress, resumeLesson] = await Promise.all([loadStudentProgress(), getResumableLesson()]);
   return (
     <AppShell>
       <div className="grid gap-5">
@@ -26,7 +27,26 @@ export default async function StudentDashboard() {
           <Card><p className="text-sm font-bold text-slate-500">Exercícios feitos</p><p className="mt-2 text-3xl font-black">{progress.exercisesDone}</p></Card>
           <Card><p className="text-sm font-bold text-slate-500">Taxa de acerto</p><p className="mt-2 text-3xl font-black">{progress.accuracy}%</p></Card>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2"><Link href="/app/licao/licao-1-1"><Button className="w-full">Continuar treino</Button></Link><Link href="/app/revisao"><Button className="w-full" variant="secondary">Revisar meus erros</Button></Link></div>
+        {resumeLesson ? (
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link href={resumeLesson.href}>
+              <Button className="w-full">Continuar treino</Button>
+            </Link>
+            <Link href="/app/revisao">
+              <Button className="w-full" variant="secondary">
+                Revisar meus erros
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link href="/app/revisao">
+              <Button className="w-full" variant="secondary">
+                Revisar meus erros
+              </Button>
+            </Link>
+          </div>
+        )}
         <section className="grid gap-3"><h2 className="text-xl font-black">Trilha</h2>{modules.slice(0, 5).map((module, index) => <ModuleCard key={module.id} module={module} unlocked={index < 3} />)}</section>
       </div>
     </AppShell>

@@ -40,6 +40,53 @@ export async function getStudentProgress(userId?: string): Promise<StudentProgre
   };
 }
 
+export type ResumableLesson = {
+  href: string;
+  title: string;
+  totalAttempts: number;
+};
+
+export async function getResumableLesson(userId?: string): Promise<ResumableLesson | null> {
+  const supabase = createServiceClient();
+  if (!supabase || !userId) return null;
+
+  const { data: lessonProgress } = await supabase
+    .from("lesson_progress")
+    .select("lesson_id,total_attempts")
+    .eq("user_id", userId)
+    .eq("completed", false)
+    .gt("total_attempts", 0)
+    .order("updated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (!lessonProgress?.lesson_id) return null;
+
+  const { data: lesson } = await supabase
+    .from("lessons")
+    .select("id,title,order_index,module_id")
+    .eq("id", lessonProgress.lesson_id)
+    .maybeSingle();
+
+  if (!lesson?.id || !lesson.module_id) return null;
+
+  const { data: module } = await supabase
+    .from("modules")
+    .select("order_index")
+    .eq("id", lesson.module_id)
+    .maybeSingle();
+
+  if (module?.order_index == null) return null;
+
+  const lessonSlug = `licao-${module.order_index}-${lesson.order_index}`;
+  const start = Math.max(0, lessonProgress.total_attempts ?? 0);
+  return {
+    href: `/app/licao/${lessonSlug}?start=${start}`,
+    title: lesson.title,
+    totalAttempts: start,
+  };
+}
+
 export async function listStudents() {
   const supabase = createServiceClient();
   if (!supabase) {
