@@ -89,7 +89,7 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
         </div>
 
         <div className="px-1 text-center sm:px-4">
-          <h2 className="text-[clamp(2.2rem,13vw,5rem)] font-black leading-[0.95] tracking-tight text-[#0f1740] sm:text-[clamp(3rem,6vw,5.25rem)]">
+          <h2 className="text-[clamp(1.25rem,7vw,2.5rem)] font-black leading-[0.95] tracking-tight text-[#0f1740] sm:text-[clamp(1.8rem,4vw,3rem)]">
             {exercise.question}
           </h2>
         </div>
