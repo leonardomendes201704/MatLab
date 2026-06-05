@@ -18,12 +18,17 @@ export function ExerciseSubmitter({ exercise, children }: { exercise: Exercise; 
 
   function submit() {
     startTransition(async () => {
-      const response = await fetch("/api/attempts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ exerciseId: exercise.id, answer, usedHint, timeSpentSeconds: 30 }),
-      });
-      setResult(await response.json());
+      try {
+        const response = await fetch("/api/attempts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ exerciseId: exercise.id, answer, usedHint, timeSpentSeconds: 30 }),
+        });
+        const payload = await response.json();
+        setResult(response.ok ? payload : { isCorrect: false, feedback: payload.error ?? "Não foi possível registrar sua resposta agora." });
+      } catch {
+        setResult({ isCorrect: false, feedback: "Não foi possível registrar sua resposta agora. Tente novamente." });
+      }
     });
   }
 
