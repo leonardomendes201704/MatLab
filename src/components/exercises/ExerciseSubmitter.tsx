@@ -50,20 +50,20 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
   }
 
   return (
-    <div className="relative overflow-hidden rounded-[36px] border border-slate-100 bg-white px-5 py-6 text-center shadow-[0_30px_90px_rgba(76,51,162,0.12)] ring-1 ring-slate-100 sm:px-7 sm:py-8">
-      <div className="pointer-events-none absolute right-8 top-8 hidden h-9 w-9 sm:block">
+    <div className="relative overflow-hidden rounded-[30px] border border-slate-100 bg-white px-4 py-4 text-center shadow-[0_30px_90px_rgba(76,51,162,0.12)] ring-1 ring-slate-100 sm:px-7 sm:py-8">
+      <div className="pointer-events-none absolute right-6 top-6 hidden h-9 w-9 sm:block">
         <Sparkles className="h-full w-full text-[#66d6a6]" />
       </div>
-      <div className="pointer-events-none absolute left-8 top-[46%] hidden h-7 w-7 sm:block">
+      <div className="pointer-events-none absolute left-6 top-[46%] hidden h-7 w-7 sm:block">
         <Sparkles className="h-full w-full text-[#f7c44d]" />
       </div>
-      <div className="pointer-events-none absolute right-10 top-[56%] hidden h-6 w-6 sm:block">
+      <div className="pointer-events-none absolute right-8 top-[56%] hidden h-6 w-6 sm:block">
         <Sparkles className="h-full w-full text-[#7fc8ff]" />
       </div>
 
-      <div className="relative z-10 grid gap-6">
-        <div className="grid items-center gap-4 lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-6">
-          <div className="mx-auto flex w-full max-w-[180px] justify-center">
+      <div className="relative z-10 grid gap-4 sm:gap-6">
+        <div className="grid items-center gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-5 lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-6">
+          <div className="mx-auto flex w-full max-w-[130px] justify-center sm:max-w-[170px] lg:max-w-[180px]">
             <Image
               alt="Mascote do wizard"
               className="h-auto w-full drop-shadow-[0_22px_45px_rgba(84,42,175,0.20)]"
@@ -75,22 +75,22 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
           </div>
 
           <div className="relative">
-            <div className="relative rounded-[30px] bg-[#f4f1ff] px-5 py-5 text-left shadow-[0_12px_30px_rgba(97,68,190,0.08)] sm:px-6 sm:py-6">
-              <div className="absolute left-0 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[6px] bg-[#f4f1ff]" />
-              <p className="max-w-2xl text-[clamp(1.05rem,2vw,1.35rem)] leading-relaxed text-slate-800">
+            <div className="relative rounded-[24px] bg-[#f4f1ff] px-4 py-4 text-left shadow-[0_12px_30px_rgba(97,68,190,0.08)] sm:rounded-[30px] sm:px-6 sm:py-6">
+              <div className="absolute left-0 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[5px] bg-[#f4f1ff] sm:h-5 sm:w-5 sm:rounded-[6px]" />
+              <p className="max-w-2xl text-[clamp(0.95rem,4vw,1.35rem)] leading-relaxed text-slate-800 sm:text-[clamp(1.05rem,2vw,1.35rem)]">
                 Foco total! Cada acerto te deixa mais próximo do topo! <span className="align-middle">🚀</span>
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mx-auto inline-flex items-center rounded-full bg-emerald-50 px-5 py-2 text-base font-black text-emerald-700 shadow-sm">
-          <Sparkles size={18} className="mr-2" />
+        <div className="mx-auto inline-flex items-center rounded-full bg-emerald-50 px-4 py-2 text-sm font-black text-emerald-700 shadow-sm sm:px-5 sm:text-base">
+          <Sparkles size={16} className="mr-2 sm:size-[18px]" />
           Dificuldade {exercise.difficulty}
         </div>
 
-        <div className="px-2 text-center sm:px-4">
-          <h2 className="text-[clamp(2.7rem,6.5vw,4.7rem)] font-black leading-none tracking-tight text-[#0f1740] sm:text-[clamp(3rem,6vw,5.25rem)]">
+        <div className="px-1 text-center sm:px-4">
+          <h2 className="text-[clamp(2.2rem,13vw,5rem)] font-black leading-[0.95] tracking-tight text-[#0f1740] sm:text-[clamp(3rem,6vw,5.25rem)]">
             {exercise.question}
           </h2>
         </div>
@@ -100,7 +100,7 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-3">
           {!result ? (
             <Button
-              className="min-h-16 w-full rounded-[28px] px-6 text-2xl font-black"
+              className="min-h-14 w-full rounded-[26px] px-5 text-xl font-black sm:min-h-16 sm:rounded-[28px] sm:px-6 sm:text-2xl"
               disabled={isPending || !answer}
               onClick={submit}
               variant="purple"
@@ -111,24 +111,24 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
 
           {exercise.hint ? (
             <Button
-              className="mx-auto min-h-14 rounded-full px-8 text-lg text-[#6d39f2] ring-1 ring-[#a88cff] hover:bg-[#f5f0ff]"
+              className="mx-auto min-h-12 rounded-full px-6 text-sm text-[#6d39f2] ring-1 ring-[#a88cff] hover:bg-[#f5f0ff] sm:min-h-14 sm:px-8 sm:text-lg"
               onClick={() => setShowHint((value) => !value)}
               type="button"
               variant="secondary"
             >
-              <Lightbulb size={20} />
+              <Lightbulb size={18} className="sm:size-5" />
               {showHint ? "Ocultar dica" : "Ver dica"}
             </Button>
           ) : null}
         </div>
 
         {showHint && exercise.hint ? (
-          <div className="mx-auto w-full max-w-3xl rounded-[24px] bg-amber-50 px-4 py-4 text-left text-base font-medium leading-7 text-amber-900 ring-1 ring-amber-100">
+          <div className="mx-auto w-full max-w-3xl rounded-[22px] bg-amber-50 px-4 py-3 text-left text-sm font-medium leading-6 text-amber-900 ring-1 ring-amber-100 sm:rounded-[24px] sm:px-4 sm:py-4 sm:text-base sm:leading-7">
             {exercise.hint}
           </div>
         ) : null}
 
-        <div className="flex items-center justify-center gap-4 text-[clamp(1rem,1.7vw,1.2rem)] text-slate-700">
+        <div className="hidden items-center justify-center gap-4 text-[clamp(1rem,1.7vw,1.2rem)] text-slate-700 sm:flex">
           <Sparkles className="text-[#56d69e]" size={18} />
           <span className="inline-flex items-center gap-2 font-medium">
             <HeartIcon />
@@ -149,7 +149,11 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
               {result.isCorrect ? <CheckCircle2 size={34} /> : <ChevronRight size={34} className="rotate-180" />}
             </div>
             <h3 className="mt-4 text-2xl font-black text-slate-950">{result.isCorrect ? "Muito bem!" : "Quase lá!"}</h3>
-            <p className={`mt-4 rounded-[22px] p-4 text-center text-base font-semibold leading-7 ${result.isCorrect ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"}`}>
+            <p
+              className={`mt-4 rounded-[22px] p-4 text-center text-base font-semibold leading-7 ${
+                result.isCorrect ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"
+              }`}
+            >
               {result.feedback}
             </p>
             {result.explanation ? <p className="mt-3 text-center text-sm leading-6 text-slate-600">{result.explanation}</p> : null}
