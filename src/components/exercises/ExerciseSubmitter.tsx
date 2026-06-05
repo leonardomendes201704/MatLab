@@ -54,11 +54,27 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
       <div className="mt-5 flex flex-wrap gap-3">
         {!result ? <Button onClick={submit} disabled={isPending || !answer}>{isPending ? "Enviando..." : "Responder"}</Button> : null}
         {!result ? <Button type="button" variant="secondary" onClick={() => setUsedHint(true)}>Ver dica</Button> : null}
-        {result ? <Button onClick={onContinue}>{isLast ? "Ver resultado" : "Continuar"}</Button> : null}
       </div>
       {usedHint ? <p className="mt-4 rounded-xl bg-amber-50 p-3 text-sm font-bold text-amber-800">{exercise.hint}</p> : null}
-      {result ? <p className={`mt-4 rounded-xl p-4 font-bold ${result.isCorrect ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"}`}>{result.feedback}</p> : null}
-      {result?.explanation ? <p className="mt-3 text-sm text-slate-600">{result.explanation}</p> : null}
+      {result ? (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-slate-950/55 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl ring-1 ring-slate-200">
+            <div className={`mx-auto grid h-16 w-16 place-items-center rounded-full text-3xl font-black ${result.isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
+              {result.isCorrect ? "✓" : "!"}
+            </div>
+            <h3 className="mt-4 text-2xl font-black text-slate-950">
+              {result.isCorrect ? "Muito bem!" : "Quase lá!"}
+            </h3>
+            <p className={`mt-3 rounded-xl p-4 text-left font-bold ${result.isCorrect ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"}`}>
+              {result.feedback}
+            </p>
+            {result.explanation ? <p className="mt-3 text-left text-sm text-slate-600">{result.explanation}</p> : null}
+            <Button className="mt-6 w-full" onClick={onContinue}>
+              {isLast ? "Ver resultado" : "Próximo"}
+            </Button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
