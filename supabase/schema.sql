@@ -116,6 +116,21 @@ create table if not exists public.lesson_progress (
   unique (user_id, lesson_id)
 );
 
+create table if not exists public.lesson_progress_history (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  lesson_id uuid references public.lessons(id) on delete cascade,
+  score int default 0,
+  correct_count int default 0,
+  wrong_count int default 0,
+  total_attempts int default 0,
+  xp_earned int default 0,
+  started_at timestamp default now(),
+  completed_at timestamp,
+  duration_seconds int default 0,
+  archived_at timestamp default now()
+);
+
 create table if not exists public.module_progress (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id) on delete cascade,

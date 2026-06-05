@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BookOpen, CheckCircle2, ChevronLeft, Crown, Home, Map, Trophy, UserRound } from "lucide-react";
 import avatarTopImage from "../../images/Avatar do topo.png";
 import decorativeSpritesImage from "../../images/Pequenos elementos decorativos.png";
@@ -32,11 +32,22 @@ const bottomNavItems = [
 export function LessonWizard({ lessonId, lesson, exercises, initialIndex = 0 }: LessonWizardProps) {
   const [currentIndex, setCurrentIndex] = useState(Math.min(Math.max(initialIndex, 0), Math.max(exercises.length - 1, 0)));
   const [results, setResults] = useResults();
+  const initializedRef = useRef(false);
   const currentExercise = exercises[currentIndex];
   const isDone = currentIndex >= exercises.length;
   const correctCount = results.filter((result) => result.isCorrect).length;
   const totalXp = results.reduce((sum, result) => sum + (result.xpEarned ?? 0), 0);
   const currentProgress = Math.min(currentIndex + 1, exercises.length);
+
+  useEffect(() => {
+    if (initializedRef.current || initialIndex > 0) return;
+    initializedRef.current = true;
+    void fetch("/api/lesson-progress/init", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lessonId, exerciseCount: exercises.length }),
+    }).catch(() => undefined);
+  }, [exercises.length, initialIndex, lessonId]);
 
   function handleAnswered(result: AttemptResult) {
     setResults((previous) => [...previous, result]);

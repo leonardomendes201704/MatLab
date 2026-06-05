@@ -51,6 +51,43 @@ export type LessonProgressState = {
   totalAttempts: number;
 };
 
+export async function archiveLessonProgress(userId: string, lessonId: string) {
+  const supabase = createServiceClient();
+  if (!supabase || !userId) return;
+
+  const { data: lessonProgress } = await supabase
+    .from("lesson_progress")
+    .select("user_id,lesson_id,score,correct_count,wrong_count,total_attempts,xp_earned,started_at,completed_at")
+    .eq("user_id", userId)
+    .eq("lesson_id", lessonId)
+    .maybeSingle();
+
+  if (!lessonProgress) return;
+
+  const startedAt = lessonProgress.started_at ? new Date(lessonProgress.started_at) : null;
+  const completedAt = lessonProgress.completed_at ? new Date(lessonProgress.completed_at) : new Date();
+  const durationSeconds = startedAt ? Math.max(0, Math.round((completedAt.getTime() - startedAt.getTime()) / 1000)) : 0;
+
+  const { error: historyError } = await supabase.from("lesson_progress_history").insert({
+    user_id: lessonProgress.user_id,
+    lesson_id: lessonProgress.lesson_id,
+    score: lessonProgress.score ?? 0,
+    correct_count: lessonProgress.correct_count ?? 0,
+    wrong_count: lessonProgress.wrong_count ?? 0,
+    total_attempts: lessonProgress.total_attempts ?? 0,
+    xp_earned: lessonProgress.xp_earned ?? 0,
+    started_at: lessonProgress.started_at ?? new Date().toISOString(),
+    completed_at: completedAt.toISOString(),
+    duration_seconds: durationSeconds,
+    archived_at: new Date().toISOString(),
+  });
+
+  if (historyError) throw historyError;
+
+  const { error: deleteError } = await supabase.from("lesson_progress").delete().eq("user_id", userId).eq("lesson_id", lessonId);
+  if (deleteError) throw deleteError;
+}
+
 export async function getResumableLesson(userId?: string): Promise<ResumableLesson | null> {
   const supabase = createServiceClient();
   if (!supabase || !userId) return null;
@@ -129,7 +166,7 @@ export async function resetLessonProgress(userId: string, lessonId: string) {
       started_at: new Date().toISOString(),
       completed_at: null,
       updated_at: new Date().toISOString(),
-    })
+    }, { onConflict: "user_id,lesson_id" })
     .select();
 }
 
