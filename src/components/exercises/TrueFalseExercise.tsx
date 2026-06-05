@@ -5,5 +5,36 @@ import type { AttemptResult } from "@/components/exercises/ExerciseSubmitter";
 import type { Exercise } from "@/types/exercise";
 
 export function TrueFalseExercise({ exercise, onAnswered, onContinue, isLast }: { exercise: Exercise; onAnswered?: (result: AttemptResult) => void; onContinue?: () => void; isLast?: boolean }) {
-  return <ExerciseSubmitter exercise={exercise} onAnswered={onAnswered} onContinue={onContinue} isLast={isLast}>{(setAnswer, selectedAnswer, locked) => <div className="mx-auto grid w-full max-w-3xl grid-cols-2 gap-2 md:gap-3"><button disabled={locked} className={`rounded-2xl p-3 text-center font-black text-emerald-800 md:p-4 ${selectedAnswer === "true" ? "bg-emerald-200" : "bg-emerald-100"}`} onClick={() => setAnswer("true")}>Verdadeiro</button><button disabled={locked} className={`rounded-2xl p-3 text-center font-black text-rose-800 md:p-4 ${selectedAnswer === "false" ? "bg-rose-200" : "bg-rose-100"}`} onClick={() => setAnswer("false")}>Falso</button></div>}</ExerciseSubmitter>;
+  return (
+    <ExerciseSubmitter exercise={exercise} onAnswered={onAnswered} onContinue={onContinue} isLast={isLast}>
+      {(setAnswer, selectedAnswer, locked) => (
+        <div className="mx-auto grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
+          <button
+            className={`min-h-16 rounded-[24px] border-2 px-5 py-4 text-center text-lg font-black transition ${
+              selectedAnswer === "true"
+                ? "border-emerald-500 bg-emerald-50 text-emerald-800 shadow-[0_10px_24px_rgba(16,185,129,0.12)]"
+                : "border-slate-200 bg-white text-slate-800 hover:border-emerald-300 hover:bg-emerald-50"
+            } disabled:cursor-default disabled:opacity-70`}
+            disabled={locked}
+            onClick={() => setAnswer("true")}
+            type="button"
+          >
+            Verdadeiro
+          </button>
+          <button
+            className={`min-h-16 rounded-[24px] border-2 px-5 py-4 text-center text-lg font-black transition ${
+              selectedAnswer === "false"
+                ? "border-rose-500 bg-rose-50 text-rose-800 shadow-[0_10px_24px_rgba(244,63,94,0.12)]"
+                : "border-slate-200 bg-white text-slate-800 hover:border-rose-300 hover:bg-rose-50"
+            } disabled:cursor-default disabled:opacity-70`}
+            disabled={locked}
+            onClick={() => setAnswer("false")}
+            type="button"
+          >
+            Falso
+          </button>
+        </div>
+      )}
+    </ExerciseSubmitter>
+  );
 }

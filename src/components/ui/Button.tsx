@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "ghost" | "danger";
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "purple";
 };
 
 export function Button({ children, className, variant = "primary", ...props }: PropsWithChildren<Props>) {
@@ -11,6 +11,7 @@ export function Button({ children, className, variant = "primary", ...props }: P
       className={clsx(
         "inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60",
         variant === "primary" && "bg-emerald-500 text-white shadow-lg shadow-emerald-200 hover:bg-emerald-600",
+        variant === "purple" && "bg-[linear-gradient(180deg,#8d5afc_0%,#6d39f2_100%)] text-white shadow-[0_18px_40px_rgba(111,73,246,0.28)] hover:brightness-105",
         variant === "secondary" && "bg-white text-slate-900 ring-1 ring-slate-200 hover:bg-slate-50",
         variant === "ghost" && "bg-transparent text-slate-700 hover:bg-white/70",
         variant === "danger" && "bg-rose-500 text-white hover:bg-rose-600",

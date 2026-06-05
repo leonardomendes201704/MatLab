@@ -11,7 +11,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
   const persistedExercises = await listExercisesByLessonSlug(lessonId);
   const exercises = persistedExercises.length ? persistedExercises : demoExercises.filter((exercise) => exercise.lesson_id === lessonId);
   const shuffledExercises = shuffleExercises(exercises.length ? exercises : demoExercises.slice(0, 1));
-  return <AppShell immersive><LessonWizard lesson={lesson} exercises={shuffledExercises} /></AppShell>;
+  return <AppShell immersive hideChrome><LessonWizard lesson={lesson} exercises={shuffledExercises} /></AppShell>;
 }
 
 function shuffleExercises(exercises: Exercise[]) {
