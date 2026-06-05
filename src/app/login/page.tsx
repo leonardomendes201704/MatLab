@@ -17,7 +17,13 @@ export default function LoginPage() {
         password: String(formData.get("password")),
       });
       if (authError) setError(authError.message);
-      else window.location.href = "/app";
+      else {
+        const { data: auth } = await supabase.auth.getUser();
+        const { data: profile } = auth.user
+          ? await supabase.from("profiles").select("role").eq("id", auth.user.id).maybeSingle()
+          : { data: null };
+        window.location.href = profile?.role === "admin" ? "/admin" : profile?.role === "guardian" ? "/responsavel" : "/app";
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Não foi possível entrar.");
     }
