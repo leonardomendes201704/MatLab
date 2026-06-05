@@ -8,11 +8,15 @@ import { ModuleCard } from "@/components/student/ModuleCard";
 import { StreakBadge } from "@/components/student/StreakBadge";
 import { XPBadge } from "@/components/student/XPBadge";
 import { modules } from "@/lib/data/catalog";
+import { createClient } from "@/lib/supabase/server";
 import { loadStudentProgress } from "@/services/progress-service";
 import { getResumableLesson } from "@/repositories/student-repository";
 
 export default async function StudentDashboard() {
-  const [progress, resumeLesson] = await Promise.all([loadStudentProgress(), getResumableLesson()]);
+  const supabase = await createClient();
+  const { data } = supabase ? await supabase.auth.getUser() : { data: { user: null } };
+  const userId = data.user?.id;
+  const [progress, resumeLesson] = await Promise.all([loadStudentProgress(userId), getResumableLesson(userId)]);
   return (
     <AppShell>
       <div className="grid gap-5">
