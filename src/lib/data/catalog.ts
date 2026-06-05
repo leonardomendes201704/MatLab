@@ -15,7 +15,18 @@ export const modules = [
 ];
 
 export const lessons = [
-  ["Adição simples", "Adição com reagrupamento", "Adição com números maiores", "Problemas de adição"],
+  [
+    "Adição simples",
+    "Adição com reagrupamento",
+    "Adição com números maiores",
+    "Problemas de adição",
+    "Adição com dezenas",
+    "Adição com centenas",
+    "Adição com três parcelas",
+    "Adição com dinheiro",
+    "Adição mental",
+    "Revisão de adição",
+  ],
   ["Subtração simples", "Subtração com empréstimo", "Subtração com números maiores", "Problemas de subtração"],
   ["Tabuada", "Multiplicação por 1 algarismo", "Multiplicação por 2 algarismos", "Problemas de multiplicação"],
   ["Divisão exata", "Divisão com resto", "Divisão por 1 algarismo", "Problemas de divisão"],

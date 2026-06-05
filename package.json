@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate:seed": "tsx scripts/generate-seed.ts"
+    "generate:seed": "tsx scripts/generate-seed.ts",
+    "populate:module1": "tsx scripts/populate-module1.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
