@@ -95,16 +95,16 @@ export function LessonWizard({ lesson, exercises }: LessonWizardProps) {
         <TopHeader />
 
         <section className="rounded-[28px] border border-slate-100 bg-white px-4 py-4 shadow-[0_22px_70px_rgba(76,51,162,0.10)] sm:rounded-[34px] sm:px-7 sm:py-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
-            <div>
-              <p className="text-sm font-black uppercase tracking-wide text-emerald-600 sm:text-lg">Lição</p>
-              <h1 className="mt-1 text-[clamp(1.8rem,8vw,3.1rem)] font-black tracking-tight text-slate-950 sm:text-[clamp(2rem,3.4vw,3.1rem)]">
+          <div className="flex flex-col gap-3">
+            <p className="text-xs font-black uppercase tracking-wide text-emerald-600 sm:text-lg">Lição</p>
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-4">
+              <h1 className="min-w-0 truncate text-[clamp(1.05rem,4.8vw,1.75rem)] font-black tracking-tight text-slate-950 sm:text-[clamp(2rem,3.4vw,3.1rem)]">
                 {lesson.title}
               </h1>
-            </div>
-            <div className="inline-flex items-center gap-2 self-start rounded-full bg-emerald-50 px-3 py-2 text-xl font-black text-emerald-700 sm:self-auto sm:gap-3 sm:px-6 sm:py-3 sm:text-2xl">
-              <CheckCircle2 size={20} strokeWidth={2.5} className="sm:size-6" />
-              <span>{currentProgress}/{exercises.length}</span>
+              <div className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1.5 text-sm font-black text-emerald-700 sm:gap-3 sm:px-6 sm:py-3 sm:text-2xl">
+                <CheckCircle2 className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={2.5} />
+                <span>{currentProgress}/{exercises.length}</span>
+              </div>
             </div>
           </div>
 
@@ -156,35 +156,35 @@ function WizardShell({ children }: { children: React.ReactNode }) {
 function TopHeader() {
   return (
     <header className="rounded-[28px] border border-slate-100 bg-white/92 px-3 py-3 shadow-[0_18px_60px_rgba(76,51,162,0.08)] backdrop-blur sm:rounded-[34px] sm:px-5 sm:py-5">
-      <div className="grid grid-cols-[28px_40px_minmax(0,1fr)_auto_40px] items-center gap-2 sm:grid-cols-[40px_64px_minmax(0,1fr)_auto_64px] sm:gap-4">
+      <div className="grid grid-cols-[22px_32px_minmax(0,1fr)_auto_36px] items-center gap-1.5 sm:grid-cols-[40px_64px_minmax(0,1fr)_auto_64px] sm:gap-4">
         <Link
           aria-label="Voltar"
-          className="grid h-8 w-8 flex-none place-items-center rounded-full text-[#7b4cff] transition hover:bg-[#f4efff] sm:h-12 sm:w-12"
+          className="grid h-7 w-7 flex-none place-items-center rounded-full text-[#7b4cff] transition hover:bg-[#f4efff] sm:h-12 sm:w-12"
           href="/app"
         >
-          <ChevronLeft className="h-6 w-6 stroke-[2.4] sm:h-[34px] sm:w-[34px]" />
+          <ChevronLeft className="h-5 w-5 stroke-[2.4] sm:h-[34px] sm:w-[34px]" />
         </Link>
 
-        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-[18px] bg-[linear-gradient(180deg,#8d5afc_0%,#6d39f2_100%)] shadow-[0_16px_30px_rgba(111,73,246,0.35)] sm:h-16 sm:w-16 sm:rounded-[22px]">
-          <Crown className="h-5 w-5 text-white sm:h-[30px] sm:w-[30px]" />
+        <div className="flex h-8 w-8 flex-none items-center justify-center rounded-[14px] bg-[linear-gradient(180deg,#8d5afc_0%,#6d39f2_100%)] shadow-[0_16px_30px_rgba(111,73,246,0.35)] sm:h-16 sm:w-16 sm:rounded-[22px]">
+          <Crown className="h-4 w-4 text-white sm:h-[30px] sm:w-[30px]" />
         </div>
 
         <div className="min-w-0">
-          <div className="flex min-w-0 flex-nowrap items-center gap-1 sm:gap-2">
-            <h1 className="truncate text-[clamp(1.22rem,5vw,2.45rem)] font-black tracking-tight text-[#0f1740] sm:text-[clamp(1.7rem,4vw,2.45rem)]">
+          <div className="flex min-w-0 flex-nowrap items-center gap-1">
+            <h1 className="truncate text-[clamp(1rem,4vw,1.4rem)] font-black tracking-tight text-[#0f1740] sm:text-[clamp(1.7rem,4vw,2.45rem)]">
               Matemática
             </h1>
-            <span className="truncate text-[clamp(1.22rem,5vw,2.45rem)] font-black tracking-tight text-[#7a4ef7] sm:text-[clamp(1.7rem,4vw,2.45rem)]">
+            <span className="truncate text-[clamp(1rem,4vw,1.4rem)] font-black tracking-tight text-[#7a4ef7] sm:text-[clamp(1.7rem,4vw,2.45rem)]">
               Quest
             </span>
           </div>
         </div>
 
-        <div className="rounded-full bg-[linear-gradient(180deg,#8d5afc_0%,#6d39f2_100%)] px-3 py-1.5 text-[0.8rem] font-black text-white shadow-[0_16px_30px_rgba(111,73,246,0.28)] sm:px-5 sm:py-3 sm:text-xl">
+        <div className="rounded-full bg-[linear-gradient(180deg,#8d5afc_0%,#6d39f2_100%)] px-2.5 py-1 text-[0.68rem] font-black text-white shadow-[0_16px_30px_rgba(111,73,246,0.28)] sm:px-5 sm:py-3 sm:text-xl">
           Nível 7
         </div>
 
-        <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-white shadow-[0_14px_30px_rgba(76,51,162,0.20)] sm:h-16 sm:w-16 sm:border-4">
+        <div className="h-8 w-8 overflow-hidden rounded-full border-2 border-white shadow-[0_14px_30px_rgba(76,51,162,0.20)] sm:h-16 sm:w-16 sm:border-4">
           <Image alt="Avatar do topo" className="h-full w-full object-cover" height={1500} src={avatarTopImage} width={1500} />
         </div>
       </div>
@@ -210,15 +210,7 @@ function FloatingSprite({ crop, className }: { crop: string; className?: string 
   return (
     <div className={className}>
       <div className="relative h-full w-full overflow-hidden">
-        <Image
-          alt=""
-          aria-hidden="true"
-          fill
-          className="object-cover"
-          sizes="64px"
-          src={decorativeSpritesImage}
-          style={{ objectPosition: crop }}
-        />
+        <Image alt="" aria-hidden="true" fill className="object-cover" sizes="64px" src={decorativeSpritesImage} style={{ objectPosition: crop }} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useTransition } from "react";
-import { CheckCircle2, ChevronRight, Lightbulb, Sparkles, Trophy } from "lucide-react";
+import { CheckCircle2, ChevronRight, Sparkles, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import type { Exercise } from "@/types/exercise";
 import mascotImage from "../../images/Mascote principal do wizard.png";
@@ -24,7 +24,6 @@ type ExerciseSubmitterProps = {
 
 export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, isLast = false }: ExerciseSubmitterProps) {
   const [answer, setAnswer] = useState("");
-  const [showHint, setShowHint] = useState(false);
   const [result, setResult] = useState<AttemptResult | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -35,7 +34,7 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
         const response = await fetch("/api/attempts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ exerciseId: exercise.id, answer, usedHint: showHint, timeSpentSeconds: 30 }),
+          body: JSON.stringify({ exerciseId: exercise.id, answer, usedHint: false, timeSpentSeconds: 30 }),
         });
         const payload = await response.json();
         const nextResult = response.ok ? payload : { isCorrect: false, feedback: payload.error ?? "Não foi possível registrar sua resposta agora." };
@@ -62,8 +61,8 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
       </div>
 
       <div className="relative z-10 grid gap-4 sm:gap-6">
-        <div className="grid items-center gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-5 lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-6">
-          <div className="mx-auto flex w-full max-w-[130px] justify-center sm:max-w-[170px] lg:max-w-[180px]">
+        <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
+          <div className="flex w-[92px] flex-none justify-center sm:w-[150px] lg:w-[180px]">
             <Image
               alt="Mascote do wizard"
               className="h-auto w-full drop-shadow-[0_22px_45px_rgba(84,42,175,0.20)]"
@@ -74,7 +73,7 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
             />
           </div>
 
-          <div className="relative">
+          <div className="min-w-0 flex-1">
             <div className="relative rounded-[24px] bg-[#f4f1ff] px-4 py-4 text-left shadow-[0_12px_30px_rgba(97,68,190,0.08)] sm:rounded-[30px] sm:px-6 sm:py-6">
               <div className="absolute left-0 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[5px] bg-[#f4f1ff] sm:h-5 sm:w-5 sm:rounded-[6px]" />
               <p className="max-w-2xl text-[clamp(0.95rem,4vw,1.35rem)] leading-relaxed text-slate-800 sm:text-[clamp(1.05rem,2vw,1.35rem)]">
@@ -109,24 +108,7 @@ export function ExerciseSubmitter({ exercise, children, onAnswered, onContinue, 
             </Button>
           ) : null}
 
-          {exercise.hint ? (
-            <Button
-              className="mx-auto min-h-12 rounded-full px-6 text-sm text-[#6d39f2] ring-1 ring-[#a88cff] hover:bg-[#f5f0ff] sm:min-h-14 sm:px-8 sm:text-lg"
-              onClick={() => setShowHint((value) => !value)}
-              type="button"
-              variant="secondary"
-            >
-              <Lightbulb size={18} className="sm:size-5" />
-              {showHint ? "Ocultar dica" : "Ver dica"}
-            </Button>
-          ) : null}
         </div>
-
-        {showHint && exercise.hint ? (
-          <div className="mx-auto w-full max-w-3xl rounded-[22px] bg-amber-50 px-4 py-3 text-left text-sm font-medium leading-6 text-amber-900 ring-1 ring-amber-100 sm:rounded-[24px] sm:px-4 sm:py-4 sm:text-base sm:leading-7">
-            {exercise.hint}
-          </div>
-        ) : null}
 
         <div className="hidden items-center justify-center gap-4 text-[clamp(1rem,1.7vw,1.2rem)] text-slate-700 sm:flex">
           <Sparkles className="text-[#56d69e]" size={18} />
