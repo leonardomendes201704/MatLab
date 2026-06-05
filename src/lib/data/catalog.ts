@@ -1,43 +1,18 @@
 import type { Exercise } from "@/types/exercise";
 import type { StudentProgress } from "@/types/progress";
+import { moduleSeedSpecs } from "@/lib/data/seed-content";
 
-export const modules = [
-  { id: "mod-adicao", title: "Adição", description: "Some com segurança e estratégia.", color: "bg-emerald-500", icon: "Plus", requiredXp: 0 },
-  { id: "mod-subtracao", title: "Subtração", description: "Tire, compare e resolva trocos.", color: "bg-sky-500", icon: "Minus", requiredXp: 80 },
-  { id: "mod-multiplicacao", title: "Multiplicação", description: "Tabuada, grupos e produtos.", color: "bg-amber-500", icon: "X", requiredXp: 180 },
-  { id: "mod-divisao", title: "Divisão", description: "Partilhas exatas e com resto.", color: "bg-rose-500", icon: "Divide", requiredXp: 280 },
-  { id: "mod-expressoes", title: "Expressões numéricas", description: "Resolva na ordem correta.", color: "bg-indigo-500", icon: "Parentheses", requiredXp: 380 },
-  { id: "mod-fracoes", title: "Frações básicas", description: "Compare partes de um todo.", color: "bg-teal-500", icon: "PieChart", requiredXp: 460 },
-  { id: "mod-decimais", title: "Números decimais", description: "Decimais em medidas e dinheiro.", color: "bg-cyan-500", icon: "BadgeCent", requiredXp: 540 },
-  { id: "mod-porcentagem", title: "Porcentagem básica", description: "10%, 25%, 50% e descontos.", color: "bg-fuchsia-500", icon: "Percent", requiredXp: 620 },
-  { id: "mod-problemas", title: "Problemas matemáticos", description: "Leia, escolha e resolva.", color: "bg-lime-600", icon: "BookOpen", requiredXp: 700 },
-  { id: "mod-revisao", title: "Revisão geral", description: "Misture tudo em desafios rápidos.", color: "bg-orange-500", icon: "Sparkles", requiredXp: 780 },
-];
+export const modules = moduleSeedSpecs.map((module) => ({
+  id: module.id,
+  title: module.title,
+  description: module.description,
+  color: module.color,
+  icon: module.icon,
+  requiredXp: module.requiredXp,
+}));
 
-export const lessons = [
-  [
-    "Adição simples",
-    "Adição com reagrupamento",
-    "Adição com números maiores",
-    "Problemas de adição",
-    "Adição com dezenas",
-    "Adição com centenas",
-    "Adição com três parcelas",
-    "Adição com dinheiro",
-    "Adição mental",
-    "Revisão de adição",
-  ],
-  ["Subtração simples", "Subtração com empréstimo", "Subtração com números maiores", "Problemas de subtração"],
-  ["Tabuada", "Multiplicação por 1 algarismo", "Multiplicação por 2 algarismos", "Problemas de multiplicação"],
-  ["Divisão exata", "Divisão com resto", "Divisão por 1 algarismo", "Problemas de divisão"],
-  ["Ordem das operações", "Parênteses", "Mistura de operações", "Problemas com expressões"],
-  ["Conceito de fração", "Comparação de frações", "Frações equivalentes", "Soma com mesmo denominador"],
-  ["Leitura de decimais", "Soma com decimais", "Subtração com decimais", "Situações com dinheiro"],
-  ["10%", "25%", "50%", "Descontos simples"],
-  ["Interpretação de texto", "Escolha da operação", "Problemas com dinheiro", "Problemas com medidas"],
-  ["Quatro operações", "Desafios rápidos", "Simulados simples", "Correção guiada"],
-].flatMap((titles, moduleIndex) =>
-  titles.map((title, lessonIndex) => ({
+export const lessons = moduleSeedSpecs.flatMap((module, moduleIndex) =>
+  module.lessonTitles.map((title, lessonIndex) => ({
     id: `licao-${moduleIndex + 1}-${lessonIndex + 1}`,
     moduleId: modules[moduleIndex].id,
     title,

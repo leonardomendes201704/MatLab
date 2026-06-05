@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "generate:seed": "tsx scripts/generate-seed.ts",
-    "populate:module1": "tsx scripts/populate-module1.ts"
+    "populate:module1": "tsx scripts/populate-module1.ts",
+    "populate:all-modules": "tsx scripts/populate-all-modules.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
